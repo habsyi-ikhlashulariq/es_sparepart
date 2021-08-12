@@ -1,0 +1,12 @@
+doctype html
+html
+  head
+    include head.pug
+  body.hold-transition.skin-green-light.sidebar-mini.fixed
+    .wrapper
+      include header.pug
+      include aside.pug
+      case params.objectName
+        when '404'
+          include 404.pug
+      include footer.pug

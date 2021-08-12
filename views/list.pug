@@ -1,0 +1,47 @@
+.content-wrapper(style='min-height: 616px;')
+  //  Content Header (Page header) 
+  section.content-header.content-center
+    h1=params.objectTitle
+      span.new-button
+        a.btn.btn-success.btn-sm(href=rooturl+'app/'+params.objectModule+'/'+params.objectName+'/create')
+          span.fa.fa-plus
+          |  Add New
+      span
+        //a.btn.btn-default.btn-sm(href=rooturl+'common/import/common/items')
+          span.fa.fa-download
+          |   Impor
+      span
+        //a.btn.btn-default.btn-sm(href=rooturl+'common/items/export?sort=name&order=asc')
+          span.fa.fa-upload
+          |   Ekspor
+      span.new-button
+        //a.btn.btn-default.btn-sm(href=rooturl+'apps/inventory?utm_source=Suggestion&utm_medium=App&utm_campaign=Inventory' target='_self')
+          span.fa.fa-rocket
+          |   Inventory
+  //  Main content 
+  section.content.content-center
+    //  Default box 
+    .box.box-success
+      .box-body
+        .table.table-responsive
+          table.table.table-striped.table-hover#list-object
+            thead
+              tr
+                case params.objectName
+                  when 'supplier'
+                    th.col-md-3 UUID
+                    th.col-md-1 Code
+                    th.col-md-2 Name
+                    th.col-md-2 Address
+                    th.col-md-1 Activated
+                    th.col-md-1.text-center Action
+                  when 'receiving-goods'
+                    th.col-md-3 UUID
+                    th.col-md-1 Trans Number
+                    th.col-md-2 Trans Date
+                    th.col-md-2 Supplier
+                    th.col-md-1 Activated
+                    th.col-md-1.text-center Action
+      //  /.box-body 
+    //  /.box 
+  //  /.content 

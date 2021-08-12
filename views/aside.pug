@@ -1,0 +1,36 @@
+aside.main-sidebar
+  //  sidebar: style can be found in sidebar.less 
+  section.sidebar
+    //  sidebar menu: : style can be found in sidebar.less 
+    ul.sidebar-menu.tree(data-widget='tree')
+      
+      li.treeview(class=params.selectedModule < 2 ? "active" : "")
+        a(href='#')
+          i.fa.fa-cubes
+          |  
+          span General
+          span.pull-right-container
+            i.fa.fa-angle-left.pull-right
+        ul.treeview-menu
+          li
+            a(href=rooturl+'app/sparepart/supplier/list')
+              i.fa.fa-angle-double-right
+              |  
+              span Supplier
+          li
+            a(href=rooturl+'app/sparepart/receiving-goods/list')
+              i.fa.fa-angle-double-right
+              |  
+              span Receiving Goods
+          li
+            a(href=rooturl+'app/sparepart/sparepart/list')
+              i.fa.fa-angle-double-right
+              |  
+              span Sparepart
+          li
+            a(href=rooturl+'app/sparepart/distribution-goods/list')
+              i.fa.fa-angle-double-right
+              |  
+              span Distribution Goods
+          
+          

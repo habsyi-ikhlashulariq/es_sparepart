@@ -1,0 +1,22 @@
+doctype html
+html
+  head
+    include head.pug
+  body.hold-transition.skin-green-light.sidebar-mini.fixed
+    .wrapper
+      include header.pug
+      include aside.pug
+      script(type='text/javascript').
+        var _OBJECT_NAME = '#{params.objectName}'
+        var _API_END_POINT = 'api/sparepart/#{params.objectName}'
+        var _LIST_URL = 'app/sparepart/#{params.objectName}/list'
+      
+      case params.objectName
+        when 'supplier'
+          include sparepart/supplier.pug
+        when 'receiving-goods'
+          include sparepart/receiving-goods.pug
+        
+      script(type='text/javascript').
+        $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
+      include footer.pug

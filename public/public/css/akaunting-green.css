@@ -1,0 +1,123 @@
+.nav-tabs-custom>.nav-tabs>li.active {
+    border-top-color: #9c6fdd;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #9c6fdd !important;
+}
+
+.form-control:focus {
+    border-color: #9c6fdd !important;
+}
+
+#result-search {
+    border-color: #9c6fdd;
+}
+
+#profit {
+    background: #9c6fdd;
+}
+
+.info-box .progress .progress-bar.progress-bar-green, .progress-bar-success {
+    background-color: #9c6fdd;
+}
+
+/* Bootstrap */
+.btn-success {
+    background-color: #9c6fdd;
+    border-color: #9c6fddbf;
+}
+
+.btn-success.hover, .btn-success:hover {
+    background-color: #9c6fddbf;
+}
+
+.btn-success.focus, .btn-success:focus {
+    background-color: #9c6fddbf;
+    border-color: #2b4020;
+}
+
+.btn-success.active, .btn-success:active {
+    background-color: #9c6fdd;
+    border-color: #9c6fddbf;
+}
+
+.btn-success.active.focus, .btn-success.active:focus {
+    background-color: #4c7139;
+    border-color: #416131;
+}
+
+button.btn.btn-success.button-submit {
+    margin-right: 5px;
+}
+
+.bg-green {
+    background-color: #9c6fdd !important;
+}
+
+.alert-success {
+    background-color: #9c6fdd !important;
+    border-color: #9c6fddbf;
+}
+
+.label-success {
+    background-color: #9c6fdd !important;
+}
+
+.box.box-success {
+    border-top-color: #9c6fdd;
+}
+
+.box.box-solid.box-success>.box-header {
+    background-color: #9c6fdd;
+}
+
+.box.box-solid.box-success {
+    border-color: #9c6fddbf;
+}
+
+.text-green {
+    color: #9c6fdd;
+}
+
+/* AdminLTE green skin */
+.skin-green-light .main-header .navbar {
+    background-color: #9c6fdd;
+}
+
+.skin-green-light .main-header .navbar .sidebar-toggle:hover {
+    background-color: #9c6fddbf;
+}
+
+.skin-green-light .main-header .logo {
+    background-color: #9c6fdd;
+}
+
+.skin-green-light .main-header li.user-header {
+    background-color: #9c6fdd;
+}
+
+.skin-green-light .main-header .logo:hover {
+    background-color: #9c6fddbf;
+}
+
+.alert-minimalist {
+	background-color: rgb(241, 242, 240);
+	border-color: rgba(149, 149, 149, 0.3);
+	border-radius: 3px;
+	color: rgb(149, 149, 149);
+	padding: 10px;
+}
+.alert-minimalist > [data-notify="icon"] {
+	height: 50px;
+	margin-right: 12px;
+}
+.alert-minimalist > [data-notify="title"] {
+	color: rgb(51, 51, 51);
+	display: block;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+.alert-minimalist > [data-notify="message"] {
+	font-size: 80%;
+}

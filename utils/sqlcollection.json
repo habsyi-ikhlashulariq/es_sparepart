@@ -1,0 +1,10 @@
+{
+    "supplier": {
+        "sql": "SELECT a.uuid, a.supplier_code, a.supplier_name,a.address,  case when a.status =1 then 'Yes' else 'No' end as status FROM `supplier` as a FILTER_BY_PROGRAM ORDER BY a.autonumber DESC",
+        "option": "SELECT autonumber as id, supplier_name as description FROM supplier FILTER_BY_PROGRAM order by description"
+    },
+    "receiving-goods": {
+        "sql": "SELECT a.uuid, a.trans_number, a.trans_date, b.supplier_name,  case when a.status =1 then 'Yes' else 'No' end as status FROM `receiving_goods`  as a JOIN supplier as b ON a.supplier_id = b.autonumber FILTER_BY_PROGRAM ORDER BY a.autonumber DESC",
+        "option": "SELECT autonumber as id, trans_number as description FROM receiving_goods FILTER_BY_PROGRAM order by description"
+    }
+}

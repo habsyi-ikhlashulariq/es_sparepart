@@ -5,6 +5,7 @@ CREATE TABLE `distribution_goods` (
   `trans_date` varchar(50) NOT NULL,
   `customer_id` int(11) NOT NULL,  
   `customer_name` varchar(50) NOT NULL,  
+  `status` tinyint(1) NOT NULL DEFAULT 0,
   `created_by` varchar(50) NOT NULL,
   `created_ts` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_by` varchar(50) NOT NULL,

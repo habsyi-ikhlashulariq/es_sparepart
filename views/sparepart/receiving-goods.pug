@@ -1,0 +1,59 @@
+.content-wrapper(style='min-height: 703px;')
+  //  Content Header (Page header) 
+  section.content-header.content-center
+    h1=params.rowData ? "Edit Receiving Goods" : "New Receiving Goods"
+  //  Main content 
+  section.content.content-center
+    //  Default box 
+    .box.box-success
+      form.form-loading-button#mainForm(method='POST' onsubmit=params.rowData ? "return saveEntry('UPD');" : "return saveEntry('INS');" action=rooturl+'api/general/'+params.objectName accept-charset='UTF-8' role='form' enctype='multipart/form-data')
+        input(name='_token' type='hidden' nosave="true" value='jdmbwKn84X5Df5IpalkRp8oSisZaf3YxPVXuKBXQ')
+        input(name='uuid' type='hidden' nosave=params.rowData ? 'false' : 'true' value=params.rowData ? params.rowData.uuid : '' dataType="string" dataKey="1"  )
+        .box-body
+          .form-group.col-md-6.required
+            label.control-label(for='trans_number') Trans Number
+            .input-group
+              .input-group-addon
+                i.fa.fa-key
+              input.form-control#trans_number(placeholder='Enter Trans Number' required name='trans_number' type='text'  dataType="string" dataKey="0" value=params.rowData ? params.rowData.trans_number : "")
+          .form-group.col-md-6.required
+            label.control-label(for='trans_date') Trans Date
+            .input-group
+              .input-group-addon
+                i.fa.fa-id-card-o
+              input.form-control#trans_date(placeholder='Enter Trans Date' required name='trans_date' type='date'  dataType="string" dataKey="0" value=params.rowData ? params.rowData.trans_date : "")
+          .form-group.col-md-6.required
+            label.control-label(for='supplierId') Supplier
+            .input-group
+              .input-group-addon
+                i.fa.fa-user
+              select.form-control#supplierId(name='supplier_id' aria-hidden='true' dataType="string")
+                  option(value) -Choose Supplier-
+                      if params.rowData
+                        option(selected, value=params.rowData.supplier_id) #{params.rowData.supplier_name}
+          .form-group.col-md-6
+            label.control-label(for='enabled') Activated
+            .input-group
+              .btn-group.radio-inline(data-toggle='buttons')
+                label#enabled_1.btn.btn-success.active
+                  input#enabled1(name='status' dataType="numeric" type='radio' value='1' checked)
+                  span.radiotext Yes
+                label#enabled_0.btn.btn-default
+                  input#enabled0(name='status' dataType="numeric" type='radio' value='0')
+                  span.radiotext No
+        //  /.box-body 
+        .box-footer
+          .col-md-12
+            .form-group.no-margin
+              button.btn.btn-success.button-submit(type='submit' data-loading-text='Loading ...')
+                span.fa.fa-save
+                |  Save
+              a.btn.btn-default(href=rooturl+'app/general/'+params.objectName+'/list')
+                span.fa.fa-times-circle
+                |  Cancel
+        //  /.box-footer 
+  //  /.content 
+.alert=alo
+script(src=rooturl+'public/js/app_greenSys_dataaccess.js?v=1.0.0')
+script(src=rooturl+'public/js/app/commonobject.js?v=1.0.0')
+script(src=rooturl+'public/js/app/supplier.js?v=1.0.0')

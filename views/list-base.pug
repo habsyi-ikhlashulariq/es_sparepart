@@ -1,0 +1,54 @@
+doctype html
+html
+  head
+    include head.pug
+  body.hold-transition.skin-green-light.sidebar-mini.fixed
+    .wrapper
+      include header.pug
+      include aside.pug
+      script(type='text/javascript').
+        var _OBJECT_NAME = '#{params.objectName}'
+        var _ORDER_BY = '#{params.objectKey}'
+      case params.objectName
+        
+        when 'supplier'
+          script(type='text/javascript').
+            var COLOUMN_SETTINGS = [    
+                { "data": 0 ,"searchable":false},
+                { "data": 1, "searchable":true}, 
+                { "data": 2, "searchable":true },
+                { "data": 3, "searchable":true },
+                { "data": 4, "searchable":true },
+                {"mRender": function ( data, type, row ) {
+                        return '<a href='+app_url +'app/sparepart/'+_OBJECT_NAME+'/'+row[0]+'/edit class="datatables-row-button"><i class="fa fa-edit"></i></a>&nbsp;|&nbsp;<a href="javascript:void(0);" onclick=deleteObject("'+row[0]+'") class="datatables-row-button"><i class="fa fa-trash"></i></a>';}
+                }
+            ]  
+        when 'receiving-goods'
+          script(type='text/javascript').
+            var COLOUMN_SETTINGS = [    
+                { "data": 0 ,"searchable":false},
+                { "data": 1, "searchable":true}, 
+                { "data": 2, "searchable":true },
+                { "data": 3, "searchable":true },
+                { "data": 4, "searchable":true },
+                {"mRender": function ( data, type, row ) {
+                        return '<a href='+app_url +'app/sparepart/'+_OBJECT_NAME+'/'+row[0]+'/edit class="datatables-row-button"><i class="fa fa-edit"></i></a>&nbsp;|&nbsp;<a href="javascript:void(0);" onclick=deleteObject("'+row[0]+'") class="datatables-row-button"><i class="fa fa-trash"></i></a>';}
+                }
+            ]  
+        when 'room'
+          script(type='text/javascript').
+            var COLOUMN_SETTINGS = [    
+                { "data": 0, "searchable":true },
+                { "data": 1, "searchable":true },
+                { "data": 2, "searchable":true },
+                { "data": 3, "searchable":true },
+                {"mRender": function ( data, type, row ) {
+                        return '<a href='+app_url +'app/general/'+_OBJECT_NAME+'/'+row[0]+'/edit class="datatables-row-button"><i class="fa fa-edit"></i></a>&nbsp;|&nbsp;<a href="javascript:void(0);" onclick=deleteData("'+row[0]+'") class="datatables-row-button"><i class="fa fa-trash"></i></a>';}
+                }
+            ]  
+        
+      include list.pug
+      script(type='text/javascript').
+        $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
+      include footer.pug
+      script(src=rooturl+'public/js/list.js?v=1.0.0')
