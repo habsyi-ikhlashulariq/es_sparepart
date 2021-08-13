@@ -16,6 +16,12 @@ html
           include sparepart/supplier.pug
         when 'receiving-goods'
           include sparepart/receiving-goods.pug
+        when 'sparepart'
+          include sparepart/sparepart.pug
+        when 'distribution-goods'
+          include sparepart/distribution-goods.pug
+        when 'stock-detail'
+          include sparepart/stock-detail.pug
         
       script(type='text/javascript').
         $('div.alert').not('.alert-important').delay(3000).fadeOut(350);

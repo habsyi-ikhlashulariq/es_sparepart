@@ -192,6 +192,8 @@ class CommonController
             case 'customer':
             case 'sparepart':
             case 'receiving-goods':
+            case 'distribution-goods':
+            case 'stock-detail':
                 selectedModule = 1;
                 break;
             default:
@@ -209,6 +211,15 @@ class CommonController
             case 'receiving-goods':
                 realTtitleName = 'Receiving Goods';
                 break;
+            case 'sparepart':
+                realTtitleName = 'Sparepart';
+                break;
+            case 'distribution-goods':
+                realTtitleName = 'Distribution Goods';
+                break;
+            case 'stock-detail':
+                realTtitleName = 'Stock Detail';
+                break;
             default:
                 break;
         }
@@ -224,6 +235,15 @@ class CommonController
                 break;
             case 'receiving-goods':
                 realTableName = 'receiving_goods';
+                break;
+            case 'sparepart':
+                realTableName = 'sparepart';
+                break;
+            case 'distribution-goods':
+                realTableName = 'distribution_goods';
+                break;
+            case 'stock-detail':
+                realTableName = 'stock_detail';
                 break;
             default:
                 realTableName = objectName
@@ -266,6 +286,15 @@ class CommonController
             case 'receiving-goods':
                 objectKey = 'a.uuid'
                 break;
+            case 'sparepart':
+                objectKey = 'a.uuid'
+                break;
+            case 'distribution-goods':
+                objectKey = 'a.uuid'
+                break;
+            case 'stock-detail':
+                objectKey = 'a.uuid'
+                break;
             default:
                 break;
         }
@@ -280,6 +309,15 @@ class CommonController
                 break;
             case 'receiving-goods':
                 objectKey = 'supplier_name'
+                break;
+            case 'sparepart':
+                objectKey = 'part_number'
+                break;
+            case 'distribution-goods':
+                objectKey = 'trans_number'
+                break;
+            case 'stock-detail':
+                objectKey = 'trans_id'
                 break;
             default:
                 break;
@@ -316,6 +354,15 @@ class CommonController
                 break;
             case 'receiving-goods':
                 orderBy = ' trans_number ASC '
+                break;
+            case 'sparepart':
+                orderBy = ' part_number ASC '
+                break;
+            case 'distribution-goods':
+                orderBy = ' trans_number ASC '
+                break;
+            case 'stock-detail':
+                orderBy = ' trans_id ASC '
                 break;
             default:
                 break;
