@@ -30,7 +30,6 @@ html
                 { "data": 1, "searchable":true}, 
                 { "data": 2, "searchable":true },
                 { "data": 3, "searchable":true },
-                { "data": 4, "searchable":true },
                 {"mRender": function ( data, type, row ) {
                         return '<a href='+app_url +'app/sparepart/'+_OBJECT_NAME+'/'+row[0]+'/edit class="datatables-row-button"><i class="fa fa-edit"></i></a>&nbsp;|&nbsp;<a href="javascript:void(0);" onclick=deleteObject("'+row[0]+'") class="datatables-row-button"><i class="fa fa-trash"></i></a>';}
                 }
