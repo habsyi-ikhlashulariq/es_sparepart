@@ -174,6 +174,39 @@ class CommonController
         return result
     }
 
+    generateAutoNumberBasedOnTime(objectName)
+    {
+        let d = new Date()
+        let startWith = this.getAutonumberStartWith(objectName)
+        return `${startWith}-${this.getFullDates(d, "")}${this.getFullTimes(d, "")}`
+    }
+
+    getFullDates(date,splitter) {
+        let year = `${date.getFullYear()}`
+        let month =`0${date.getMonth()+1}`
+        let day = `0${date.getDate()}`
+        return `${year}${splitter}${month.substring(month.length-2,month.length)}${splitter}${day.substring(day.length-2,day.length)}`
+    }
+
+    getFullTimes(date, splitter) {
+        let hours = `0${date.getHours()}`
+        let minutes =`0${date.getMinutes()}`
+        let seconds = `0${date.getSeconds()}`
+        return `${hours.substring(hours.length-2,hours.length)}${splitter}${minutes.substring(minutes.length-2,minutes.length)}${splitter}${seconds.substring(seconds.length-2,seconds.length)}`
+    }
+
+    getAutonumberStartWith(objectName){
+        var startWith = '0'
+        switch (objectName) {
+            case 'receiving-goods':
+                startWith = 'RG';
+                break;
+            default:
+                break;
+        }
+        return startWith
+    }
+
     getRelatedObject(objectName){
         switch (objectName) {
             case "product-category":

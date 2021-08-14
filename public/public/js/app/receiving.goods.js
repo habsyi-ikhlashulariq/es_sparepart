@@ -34,26 +34,37 @@ const maskMoneyOptions = {
   }
   
   
-  $("#userRoleId").select2(select2Options({
-    placeholder: '- User Role -',
-    objectName: 'user-roles'
+$('#transDate').datepicker({
+  format: 'yyyy-mm-dd',
+  todayBtn: 'linked',
+  weekStart: 1,
+  autoclose: true,
+  language: 'id'
+});
+  
+  $("#supplier").select2(select2Options({
+    placeholder: '- choose supplier -',
+    objectName: 'supplier'
   }));
   
-  $('#button-add-menu').on('click', function(el) {
+  $('#button-add-sparepart').on('click', function(el) {
     el.preventDefault();
-    var rowCounter = $("#menu tr").length - 2;
-    var newAttribute = `<tr id="menu-row-${rowCounter}">
+    var rowCounter = $("#sparepart tr").length - 2;
+    var newAttribute = `<tr id="sparepart-row-${rowCounter}">
                           <td class="text-center" style="vertical-align: middle;">
-                            <button class="btn btn-xs btn-danger" type="button" onclick="$(this).tooltip('destroy'); deleteItem(${rowCounter},'menu');" data-toggle="tooltip" title="" data-original-title="delete" aria-describedby="tooltip483671"><i class="fa fa-trash"></i></button></td>
+                            <button class="btn btn-xs btn-danger" type="button" onclick="$(this).tooltip('destroy'); deleteItem(${rowCounter},'sparepart');" data-toggle="tooltip" title="" data-original-title="delete" aria-describedby="tooltip483671"><i class="fa fa-trash"></i></button></td>
                           <td>
-                            <input class="form-control typeahead" nosave="true" id="menu-name-${rowCounter}" type="text" placeholder="Enter Menu" name="menu[${rowCounter}][menu]" data-source="menu" autocomplete="off">
-                            <input id="menu-autonumber-${rowCounter}" nosave="true" type="hidden" name="menu[${rowCounter}][autonumber]" value="">
-                            <input id="menu-id-${rowCounter}" nosave="true" type="hidden" name="menu[${rowCounter}][menu_id]" value="">
+                            <input class="form-control typeahead" nosave="true" id="sparepart-name-${rowCounter}" type="text" placeholder="Enter Sparepart Desc" name="sparepart[${rowCounter}][sparepart]" data-source="sparepart" autocomplete="off">
+                            <input id="sparepart-autonumber-${rowCounter}" nosave="true" type="hidden" name="sparepart[${rowCounter}][autonumber]" value="">
+                            <input id="sparepart-id-${rowCounter}" nosave="true" type="hidden" name="sparepart[${rowCounter}][part_name]" value="">
+                          </td>
+                          <td>
+                            <input class="form-control" nosave="true" id="sparepart-qty-in-${rowCounter}" type="text" placeholder="Enter QTY" name="sparepart[${rowCounter}][qty_in]" autocomplete="false">
                           </td>
                         </tr>`
-    $('#addMenu').before(newAttribute);
+    $('#addSparepart').before(newAttribute);
   
-    attachTypeHeadEvent($(`#menu-name-${rowCounter}`))
+    attachTypeHeadEvent($(`#sparepart-name-${rowCounter}`))
   
   
     $('.input-price').maskMoney(maskMoneyOptions);
@@ -107,8 +118,9 @@ const maskMoneyOptions = {
   
   function afterSelect(object, data){
     switch (object) {
-      case "menu":
-          $('#menu-id-' + item_id).val(data.id);
+      case "sparepart":
+          $('#sparepart-id-' + item_id).val(data.id);
+          $('#sparepart-desc-' + item_id).focus();
         break;
       default:
         break;
@@ -116,32 +128,36 @@ const maskMoneyOptions = {
   }
   
   function callbackSaveRelated(returnId){
-    let menuLength = $("#menu tr").length - 2
+    let sparepartLength = $("#sparepart tr").length - 2
   
     var dtAccess=new dataAccess();
     
     var index = 0
-    for ( index = 0; index < menuLength; index++ ) {
+    for ( index = 0; index < sparepartLength; index++ ) {
       if ( index == 0 ) {
-        if( $(`#menu-autonumber-${index}`).val() == "" ){
-          dtAccess.initialize("user_roles","","INS");
+        if( $(`#sparepart-autonumber-${index}`).val() == "" ){
+          dtAccess.initialize("stock_detail","","INS");
         }else{
-          dtAccess.initialize("user_roles","","UPD");
-          dtAccess.addItem("autonumber",$(`#menu-autonumber-${index}`).val(),"numeric","1","");
+          dtAccess.initialize("stock_detail","","UPD");
+          dtAccess.addItem("autonumber",$(`#sparepart-autonumber-${index}`).val(),"numeric","1","");
         }
-  
-        dtAccess.addItem("menu_id",$(`#menu-id-${index}`).val(),"numeric","0","");
-        // dtAccess.addItem("course_id",returnId,"numeric","0","");
+        dtAccess.addItem("trans_source","RECEIVING","string","0","");
+        dtAccess.addItem("part_id",$(`#sparepart-id-${index}`).val(),"numeric","0","");
+        dtAccess.addItem("trans_id",returnId,"numeric","0","");
+        dtAccess.addItem("qty_in",$(`#sparepart-qty-in-${index}`).val(),"numeric","0","");
+        dtAccess.addItem("qty_out","0","numeric","0","");
       }else{
-        if( $(`#menu-autonumber-${index}`).val() == "" ){
-          dtAccess.addRelatedTable("user_roles","","INS");
+        if( $(`#sparepart-autonumber-${index}`).val() == "" ){
+          dtAccess.addRelatedTable("stock_detail","","INS");
         }else{
-          dtAccess.addRelatedTable("user_roles","","UPD");
-          dtAccess.addItemRelated(index-1,"autonumber",$(`#menu-autonumber-${index}`).val(),"numeric","1","");
+          dtAccess.addRelatedTable("stock_detail","","UPD");
+          dtAccess.addItemRelated(index-1,"autonumber",$(`#sparepart-autonumber-${index}`).val(),"numeric","1","");
         } 
-  
-        dtAccess.addItemRelated(index-1,"menu_id",$(`#menu-id-${index}`).val(),"numeric","0","");
-        // dtAccess.addItemRelated(index-1,"course_id",returnId,"numeric","0","");
+        dtAccess.addItemRelated(index-1,"trans_source","RECEIVING","string","0","");
+        dtAccess.addItemRelated(index-1,"part_id",$(`#sparepart-id-${index}`).val(),"numeric","0","");
+        dtAccess.addItemRelated(index-1,"trans_id",returnId,"numeric","0","");
+        dtAccess.addItemRelated(index-1,"qty_in",$(`#sparepart-qty-in-${index}`).val(),"string","0","");
+        dtAccess.addItemRelated(index-1,"qty_out","0","numeric","0","");
       }
     }
   
@@ -186,8 +202,8 @@ const maskMoneyOptions = {
     var dtAccess=new dataAccess();
     var tableName = "undefined"
     switch (objectName) {
-      case 'menu':
-        tableName = "user_roles"
+      case 'sparepart':
+        tableName = "stock-detail"
         break;
     
       default:

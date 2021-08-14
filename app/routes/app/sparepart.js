@@ -42,6 +42,7 @@ sparepart.get('/:objectname/create', async (req,res) => {
         objectKey: objectKey,
         selectedModule: selectedModule,
         relatedData: [],
+        transactionNumber: commonController.generateAutoNumberBasedOnTime(req.params.objectname),
     }
    
     res.render('sparepart-base', { 
