@@ -17,18 +17,18 @@ class CommonModel
 
         var result = {
             success: true,
-            error: null,
+            message: null,
             data: null
         }
 
         return new Promise(function(resolve, reject){
               db.query(
-                sqlStatement, [params.keyValue],
+                sqlStatement, [params.keyValue, params.secondKeyValue],
                   function(err, rows){
                       if ( !err ) {
                         if(rows === undefined){
                             result.success = false
-                            result.error = 'Error rows is undefined'
+                            result.message = 'Error rows is undefined'
                             result.data = []
                             resolve(result);
                         }else{
@@ -47,7 +47,7 @@ class CommonModel
                         sanitateError.errno = err.errno
                         sanitateError.errcode = err.code
                         sanitateError.errmessage = err.sqlMessage
-                        result.error = sanitateError
+                        result.message = sanitateError
                         result.data = []
                         resolve(result); 
                       }                                              
@@ -283,6 +283,44 @@ class CommonModel
               )}
           )
     };
+
+    async directExecute(params) {
+        
+        var sqlStatement = params
+        //console.log(sqlStatement)
+
+        var result = {
+            success: true,
+            error: null,
+            data: null
+        }
+
+        return new Promise(function(resolve, reject){
+            db.query(
+              sqlStatement,
+                function(err, results){
+                    if ( !err ) {
+                      result.data = results.insertId
+                      resolve(result);
+                    }else{
+                      result.success = false
+                      let sanitateError = {
+                          errno : null,
+                          errcode : null,
+                          errmessage: null,
+                          previewSQL: null
+                      }
+                      sanitateError.errno = err.errno
+                      sanitateError.errcode = err.code
+                      sanitateError.errmessage = err.sqlMessage
+                      sanitateError.previewSQL = sqlStatement
+                      result.error = sanitateError
+                      resolve(result); 
+                    }                                              
+                }
+            )}
+        )
+    }
 }
 
 module.exports = new CommonModel();

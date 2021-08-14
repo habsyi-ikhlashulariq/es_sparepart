@@ -15,12 +15,6 @@
         "option": "SELECT autonumber as id, part_desc as description FROM sparepart FILTER_BY_PROGRAM order by description",
         "autocomplete": "select autonumber as id, part_number, part_desc as description FROM sparepart FILTER_BY_PROGRAM order by part_desc"
     },
-    "api-spareparts": {
-        "sql": "SELECT a.uuid as id, a.part_number as partNumber, a.part_desc as partDesc, a.price_sale as priceSale, 10 as stock FROM `sparepart` as a FILTER_BY_PROGRAM ORDER BY a.autonumber DESC"
-    },
-    "api-sparepart": {
-        "sql": "SELECT a.uuid as id, a.part_number as partNumber, a.part_desc as partDesc, a.price_sale as priceSale, 10 as stock  FROM `sparepart` as a WHERE a.part_number = ? "
-    },
     "distribution-goods": {
         "sql": "SELECT a.uuid, a.trans_number, a.trans_date, a.customer_name,  case when a.status =1 then 'Yes' else 'No' end as status, customer_id FROM `distribution_goods`  as a FILTER_BY_PROGRAM ORDER BY a.autonumber DESC",
         "option": "SELECT autonumber as id, trans_number as description FROM distribution_goods FILTER_BY_PROGRAM order by description",
@@ -31,5 +25,21 @@
     "stock-detail": {
         "sql": "SELECT a.uuid, a.trans_source, a.trans_id, a.part_id,  case when a.status =1 then 'Yes' else 'No' end as status FROM `stock_detail`  as a FILTER_BY_PROGRAM ORDER BY a.autonumber DESC",
         "option": "SELECT autonumber as id, trans_id as description FROM stock_detail FILTER_BY_PROGRAM order by description"
+    },
+    "api-get-partid": {
+        "sql": "SELECT a.autonumber as id FROM `sparepart` as a WHERE a.part_number = ? "
+    },
+    "api-spareparts": {
+        "sql": "SELECT a.uuid as id, a.part_number as partNumber, a.part_desc as partDesc, a.price_sale as priceSale, 10 as stock FROM `sparepart` as a FILTER_BY_PROGRAM ORDER BY a.autonumber DESC"
+    },
+    "api-sparepart": {
+        "sql": "SELECT a.uuid as id, a.part_number as partNumber, a.part_desc as partDesc, a.price_sale as priceSale, 10 as stock  FROM `sparepart` as a WHERE a.part_number = ? "
+    },
+    "api-validate-distribution": {
+        "sql": "SELECT autonumber as id FROM `distribution_goods` WHERE trans_number = ? "
+    },
+    "api-get-distribution-lineid": {
+        "sql": "SELECT autonumber as id  FROM `stock_detail` WHERE trans_id = ?  and part_id = ? "
     }
+    
 }
