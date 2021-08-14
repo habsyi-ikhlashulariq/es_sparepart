@@ -5,11 +5,21 @@
     },
     "receiving-goods": {
         "sql": "SELECT a.uuid, a.trans_number, a.trans_date, b.supplier_name,  case when a.status =1 then 'Yes' else 'No' end as status FROM `receiving_goods`  as a JOIN supplier as b ON a.supplier_id = b.autonumber FILTER_BY_PROGRAM ORDER BY a.autonumber DESC",
-        "option": "SELECT autonumber as id, trans_number as description FROM receiving_goods FILTER_BY_PROGRAM order by description"
+        "option": "SELECT autonumber as id, trans_number as description FROM receiving_goods FILTER_BY_PROGRAM order by description",
+        "related": [
+            "SELECT a.autonumber as id, a.trans_id, a.part_id, b.part_desc, qty_in  FROM `stock_detail` as a JOIN `sparepart` as b ON a.part_id = b.autonumber WHERE a.trans_id = (SELECT c.autonumber FROM receiving_goods as c where c.uuid = ?) order by a.autonumber"
+        ]
     },
     "sparepart": {
         "sql": "SELECT a.uuid, a.part_number, a.part_desc, a.price_sale,  case when a.status =1 then 'Yes' else 'No' end as status FROM `sparepart`  as a FILTER_BY_PROGRAM ORDER BY a.autonumber DESC",
-        "option": "SELECT autonumber as id, part_desc as description FROM sparepart FILTER_BY_PROGRAM order by description"
+        "option": "SELECT autonumber as id, part_desc as description FROM sparepart FILTER_BY_PROGRAM order by description",
+        "autocomplete": "select autonumber as id, part_number, part_desc as description  FROM sparepart FILTER_BY_PROGRAM order by part_desc"
+    },
+    "api-spareparts": {
+        "sql": "SELECT a.uuid as id, a.part_number as partNumber, a.part_desc as partDesc, a.price_sale as priceSale, 10 as stock FROM `sparepart` as a FILTER_BY_PROGRAM ORDER BY a.autonumber DESC"
+    },
+    "api-sparepart": {
+        "sql": "SELECT a.uuid as id, a.part_number as partNumber, a.part_desc as partDesc, a.price_sale as priceSale, 10 as stock  FROM `sparepart` as a WHERE a.part_number = ? "
     },
     "distribution-goods": {
         "sql": "SELECT a.uuid, a.trans_number, a.trans_date, a.customer_id,  case when a.status =1 then 'Yes' else 'No' end as status FROM `distribution_goods`  as a FILTER_BY_PROGRAM ORDER BY a.autonumber DESC",

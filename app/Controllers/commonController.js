@@ -316,9 +316,6 @@ class CommonController
             case 'distribution-goods':
                 objectKey = 'trans_number'
                 break;
-            case 'stock-detail':
-                objectKey = 'trans_id'
-                break;
             default:
                 break;
         }
@@ -339,6 +336,14 @@ class CommonController
             case 'user-roles':
                 objectFilters = ` AND ( code Like '%${keyword}%' 
                     or role Like '%${keyword}%' )`
+                break;
+            case 'receiving-goods':
+                objectFilters = ` AND ( part_number Like '%${keyword}%' 
+                    or part_desc Like '%${keyword}%' )`
+                break;
+            case 'sparepart':
+                objectFilters = ` AND ( part_number Like '%${keyword}%' 
+                    or part_desc Like '%${keyword}%' )`
                 break;
             default:
                 break;
