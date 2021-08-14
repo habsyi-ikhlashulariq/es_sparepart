@@ -22,7 +22,8 @@ class CommonController
         var params = {
             sqlStatement: overrideSqlStatement ? overrideSqlStatement : "SELECT "+ this.getSelectedColumnForDataTable(params.objectName) + " FROM `" + this.getRealTableName(params.objectName) + "` FILTER_BY_PROGRAM",
             filter: params.objectId != "" ? "WHERE " + this.getObjectKey(params.objectName) + " = ?" : "",
-            keyValue: params.objectId
+            keyValue: params.objectId,
+            secondKeyValue: ""
         }
         let result = await model.getData(params)
         return result
@@ -34,7 +35,8 @@ class CommonController
         var params = {
             sqlStatement: overrideSqlStatement,
             filter: "",
-            keyValue: params.objectId
+            keyValue: params.objectId,
+            secondKeyValue: ""
         }
         console.log(params)
         let result = await model.getData(params)
@@ -74,7 +76,9 @@ class CommonController
         var overrideSqlStatement = sqlColObject[params.objectName].autocomplete
         var params = {
             sqlStatement: overrideSqlStatement,
-            filter: params.objectKey != "" ? ` WHERE status = 1 ${this.getAutocompleteFilter(params.objectName, params.objectKey)} ` : ""
+            filter: params.objectKey != "" ? ` WHERE status = 1 ${this.getAutocompleteFilter(params.objectName, params.objectKey)} ` : "",
+            keyValue: params.customKey,
+            secondKeyValue: ""
         }
         console.log(params)
         let result = await model.getData(params)
@@ -87,7 +91,8 @@ class CommonController
         var params = {
             sqlStatement: overrideSqlStatement,
             filter: params.objectKey != "" ? `  ${this.getAutocompleteFilter(params.objectName, params.objectKey)} ` : "",
-            keyValue: params.customKey
+            keyValue: params.customKey,
+            secondKeyValue: ""
         }
         console.log(params)
         let result = await model.getData(params)
@@ -106,7 +111,8 @@ class CommonController
                 var params = {
                     sqlStatement: sql,
                     filter: "",
-                    keyValue: myParams.objectId
+                    keyValue: myParams.objectId,
+                    secondKeyValue: ""
                 }
                 
                 let result = await model.getData(params)
@@ -125,7 +131,8 @@ class CommonController
         var params = {
             sqlStatement: overrideSqlStatement ? overrideSqlStatement : "SELECT "+ this.getSelectedColumnForDataTable(params.objectName) + " FROM `" + this.getRealTableName(params.objectName) + "` FILTER_BY_PROGRAM",
             filter: "",
-            keyValue: params.objectId
+            keyValue: params.objectId,
+            secondKeyValue: ""
         }
         console.log(params)
         let result = await model.getData(params)
@@ -288,7 +295,7 @@ class CommonController
     getSelectedColumn(objectName){
         var selectedCols = ""
         switch (objectName) {
-            case 'course-caetgory':
+            case 'course-category':
                 selectedCols = "uuid, code, description, case when status =1 then 'Yes' else 'No' end as status"
                 break;
             
@@ -358,23 +365,7 @@ class CommonController
     getAutocompleteFilter(objectName, keyword){
         var objectFilters = ""
         switch (objectName) {
-            case 'grade':
-                objectFilters = ` AND ( code Like '%${keyword}%' 
-                    or description Like '%${keyword}%' )`
-                break;
-            case 'course':
-                objectFilters = ` AND ( code Like '%${keyword}%' 
-                    or description Like '%${keyword}%' )`
-                break;
-            case 'user-roles':
-                objectFilters = ` AND ( code Like '%${keyword}%' 
-                    or role Like '%${keyword}%' )`
-                break;
-            case 'receiving-goods':
-                objectFilters = ` AND ( part_number Like '%${keyword}%' 
-                    or part_desc Like '%${keyword}%' )`
-                break;
-            case 'sparepart':
+           case 'sparepart':
                 objectFilters = ` AND ( part_number Like '%${keyword}%' 
                     or part_desc Like '%${keyword}%' )`
                 break;
@@ -399,9 +390,6 @@ class CommonController
             case 'distribution-goods':
                 orderBy = ' trans_number ASC '
                 break;
-            case 'stock-detail':
-                orderBy = ' trans_id ASC '
-                break;
             default:
                 break;
         }
@@ -411,7 +399,7 @@ class CommonController
     queryGenerator(mode,params) {
         //var objectName = params.objectName
         var sqlStatement = ""
-
+        console.log(params)
         var object = {
             fieldCollection: params.objectValue[0].dt_fieldsCollection,
             updMode: params.objectValue[0].modify_status,
